@@ -5,11 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var methodOverride = require('method-override');
 
 mongoose.connect('mongodb://localhost/todos');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var todosRouter = require('.routes/todos');
 
 var app = express();
 
@@ -24,6 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
+app.use('/todos', todosRouter);
+
 
 app.use('/', routes);
 app.use('/users', users);
