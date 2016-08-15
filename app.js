@@ -6,12 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
+var todosRouter = require('./routes/todos');
 
 mongoose.connect('mongodb://localhost/todos');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var todosRouter = require('.routes/todos');
 
 var app = express();
 

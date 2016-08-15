@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Todo = require('./models/todo');
 
-mongoose.connect('mongodb://localhost.todos');
+mongoose.connect('mongodb://localhost/todos');
 
 function quit() {
   mongoose.disconnect();

@@ -9,8 +9,9 @@ function makeError(res, message, status) {
   return error;
 }
 
-//INDEX
+// INDEX
 router.get('/', function(req, res, next) {
+  // get all the todos and render the index view
   Todo.find({})
   .then(function(todos) {
     res.render('todos/index', { todos: todos } );
@@ -19,7 +20,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//NEW
+// NEW
 router.get('/new', function(req, res, next) {
   var todo = {
     title: '',
@@ -28,7 +29,7 @@ router.get('/new', function(req, res, next) {
   res.render('todos/new', { todo: todo } );
 });
 
-//SHOW
+// SHOW
 router.get('/:id', function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
@@ -39,7 +40,7 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-//CREATE
+// CREATE
 router.post('/', function(req, res, next) {
   var todo = new Todo({
     title: req.body.title,
@@ -53,7 +54,7 @@ router.post('/', function(req, res, next) {
   });
 });
 
-//EDIT
+// EDIT
 router.get('/:id/edit', function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
@@ -64,7 +65,7 @@ router.get('/:id/edit', function(req, res, next) {
   });
 });
 
-//UPDATE
+// UPDATE
 router.put('/:id', function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
@@ -80,7 +81,7 @@ router.put('/:id', function(req, res, next) {
   });
 });
 
-//DESTROY
+// DESTROY
 router.delete('/:id', function(req, res, next) {
   Todo.findByIdAndRemove(req.params.id)
   .then(function() {
