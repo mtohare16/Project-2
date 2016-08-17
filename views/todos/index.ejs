@@ -16,7 +16,8 @@
         <h4>
           <form meathod="POST" action="/todos/<%= todo._id %>?_method+DELETE">
             <a href="/todos/<% todo._id %>">
-              <%= todo.title + ' - ' + todo.completed %>
+              <%= todo.title + ' - ' %>
+              <span class="glyphicon glyphicon-unchecked"></span>
             </a>
             <button type="submit" class="btn btn-xs btn-danger">Delete</button>
           </form>

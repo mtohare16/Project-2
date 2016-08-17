@@ -19,9 +19,9 @@ Todo.remove({})
 .then(function() {
   console.log('old todos removed');
   console.log('creating some new todos...');
-  var groceries = new Todo({ title: 'groceries', completed: false });
-  var feedTheCat = new Todo({ title: 'feed the cat', completed: true });
-  return Todo.create([groceries, feedTheCat]);
+  var tdk = new Todo({ title: 'The Dark Knight', completed: false });
+  var spr = new Todo({ title: 'Saving Private Ryan', completed: true });
+  return Todo.create([tdk, spr]);
 })
 .then(function(allTodos) {
   console.log('Just saved', savedTodos.length, 'todos.');
@@ -33,17 +33,17 @@ Todo.remove({})
   allTodos.forEach(function(todo) {
     console.log(todo);
   });
-  return Todo.findOne({title: 'groceries'});
+  return Todo.findOne({title: 'tdk'});
 })
 
-.then(function(groceries) {
-  groceries.completed = true;
-  return groceries.save();
+.then(function(tdk) {
+  tdk.completed = true;
+  return tdk.save();
 })
 
-.then(function(groceries) {
-  console.log('updated grocereis:', groceries);
-  return groceries.remove();
+.then(function(tdk) {
+  console.log('updated The Dark Knight:', tdk);
+  return tdk.remove();
 })
 .then(function(deleted) {
   return Todo.find({});
