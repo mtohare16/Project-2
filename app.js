@@ -10,10 +10,30 @@ var todosRouter = require('./routes/todos');
 
 mongoose.connect('mongodb://localhost/todos');
 
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+app.use(session({ secret: 'WDI Rocks!',
+                  resave: true,
+                  saveUnintialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+require('./config/passport/passport')(passport);
+
+// This middleware will allow us to use the currentUser in our views and routes.
+app.use(function (req, res, next) {
+  global.currentUser = req.user;
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
