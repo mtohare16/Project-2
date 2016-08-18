@@ -14,7 +14,16 @@
         <h3>Movies</h3>
         <p><b>Title: </b><%= todo.title %></p>
         <p><b>ID: </b><%= todo._id %></p>
+
         <p><b>Completed: </b><%= todo.completed %></p>
+
+        <!-- <p><b>Completed: </b>
+        <% if (todo.completed) { %>
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <% } else { %>
+          <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+        <% } %>
+      </p> -->
       </div>
 
       <a href="/todos" class="btn btn-primary">Back</a>
