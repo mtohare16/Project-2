@@ -10,9 +10,25 @@ function makeError(res, message, status) {
 }
 
 // INDEX
+//?title(genre)=kfjdlsa
 router.get('/', function(req, res, next) {
+  var todoFilter = {};
+
+  if (req.query.title) {
+    todoFilter.title = req.query.title;
+  }
+
+  if (req.query.genre) {
+    todoFilter.genre = req.query.genre;
+  }
+
+  if (req.query.completed) {
+    todoFilter.completed = req.query.completed;
+  }
+
+  console.log('todoFilter:', todoFilter);
   // get all the todos and render the index view
-  Todo.find({})
+  Todo.find(todoFilter)
   .then(function(todos) {
     res.render('todos/index', { todos: todos } );
   }, function(err) {
@@ -24,6 +40,7 @@ router.get('/', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   var todo = {
     title: '',
+    //genre: '',
     completed: false
   };
   res.render('todos/new', { todo: todo } );
