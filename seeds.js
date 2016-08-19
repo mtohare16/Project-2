@@ -19,8 +19,8 @@ Todo.remove({})
 .then(function() {
   console.log('old todos removed');
   console.log('creating some new todos...');
-  var tdk = new Todo({ title: 'The Dark Knight', completed: false });
-  var spr = new Todo({ title: 'Saving Private Ryan', completed: true });
+  var tdk = new Todo({ title: 'The Dark Knight', genre: 'Drama', completed: false });
+  var spr = new Todo({ title: 'Saving Private Ryan', genre: 'Drama', completed: true });
   return Todo.create([tdk, spr]);
 })
 .then(function(allTodos) {

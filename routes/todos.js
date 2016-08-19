@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   var todo = {
     title: '',
-    //genre: '',
+    genre: '',
     completed: false
   };
   res.render('todos/new', { todo: todo } );
@@ -61,6 +61,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var todo = new Todo({
     title: req.body.title,
+    genre: req.body.genre,
     completed: req.body.completed ? true : false
   });
   todo.save()
@@ -88,6 +89,7 @@ router.put('/:id', function(req, res, next) {
   .then(function(todo) {
     if (!todo) return next(makeError(res, 'Document not found', 404));
     todo.title = req.body.title;
+    todo.genre = req.body.genre;
     todo.completed = req.body.completed ? true : false;
     return todo.save();
   })

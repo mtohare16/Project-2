@@ -35,6 +35,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+app.get('/views/todos/index', function(req, res) {
+  var search = encodeURIComponent('string');
+  res.redirect('/?title=' + string);
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
