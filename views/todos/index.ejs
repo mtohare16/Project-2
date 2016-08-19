@@ -15,10 +15,10 @@
       <% todos.forEach(function(todo) { %>
         <h4>
           <form meathod="POST" action="/todos/<%= todo._id %>?_method+DELETE">
-            <a href="/todos/<% todo._id %>">
+            <a href="/todos/<%= todo._id %>">
               <%= todo.title + ' - ' %>
             </a>
-            <a href="/todos/<% todo._id%>/toggle">
+            <a href="/todos/<%= todo._id%>/toggle">
               <% if (todo.completed) { %>
               <span class="glyphicon glyphicon-ok" aria hidden="true"></span>
               <% } else { %>
