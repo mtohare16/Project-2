@@ -32,6 +32,11 @@
     </div>
     <a href="/todos/new" class="btn bt-primary">New</a>
   </main>
+  <form class="todo-form" action="/todos/search" method="POST">
+    <% include _searchform %>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+
 
   <footer>
     <% include ../partials/footer %>

@@ -36,6 +36,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+//Search
+router.post('/search', function(req, res, next) {
+console.log(req.body.genre);
+
+  var search = req.body.genre;
+  res.redirect('/todos/?genre='+search);
+});
+
 // NEW
 router.get('/new', function(req, res, next) {
   var todo = {
@@ -82,6 +90,18 @@ router.get('/:id/edit', function(req, res, next) {
     return next(err);
   });
 });
+
+/*// Search Results
+router.get('/search', function(req, res, next) {
+  Todo.findById(req.params.id)
+  .then(function(todo) {
+    if (!todo) return next(makeError(res, 'Document not found', 404));
+    res.redirect('/?' + string, { todo: todo });
+  }, function(err) {
+    return next(err);
+  });
+});
+*/
 
 // UPDATE
 router.put('/:id', function(req, res, next) {
