@@ -1,4 +1,8 @@
-<nav class="navbar navbar-default" role="navigation">
+<div class="masthead">
+  <img src="https://slicksmovieblog.files.wordpress.com/2014/08/cropped-movie-banner-e1408372575210.jpg" class="img-responsive" alt="Responsive image"/>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">
@@ -11,7 +15,7 @@
       <% if (currentUser) { %>
         <li><a href="/todos">My Movies</a></li>
       <% } %>
-      <li><a href="#">Search</a></li>
+      <li><a href="/todos/search">Search</a></li>
       <li><a href="#">Reviews</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

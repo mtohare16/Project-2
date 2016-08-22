@@ -44,6 +44,11 @@ console.log(req.body.genre);
   res.redirect('/todos/?genre='+search);
 });
 
+//Get
+router.get('/search',function(req, res, next) {
+  res.render('todos/search');
+});
+
 // NEW
 router.get('/new', function(req, res, next) {
   var todo = {

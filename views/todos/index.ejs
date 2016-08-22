@@ -13,7 +13,7 @@
     <div>
       <h3>My Movie List:</h3>
       <% todos.forEach(function(todo) { %>
-        <h4>
+        <h4 class="list-group-item panel panel-primary ng-scope">
           <form meathod="POST" action="/todos/<%= todo._id %>?_method+DELETE">
             <a href="/todos/<%= todo._id %>">
               <%= todo.title %>
@@ -30,8 +30,10 @@
         </h4>
       <% }) %>
     </div>
-    <a href="/todos/new" class="btn bt-primary">New</a>
+    <br>
+    <a href="/todos/new" type="button" class="btn btn-default">New</a>
   </main>
+  <br>
   <form class="todo-form" action="/todos/search" method="POST">
     <% include _searchform %>
     <button type="submit" class="btn btn-success">Submit</button>
