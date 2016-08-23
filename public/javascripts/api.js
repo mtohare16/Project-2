@@ -15,18 +15,20 @@ var randomMovieArray =
 // var randomMovie = randomMovieArray[randomNumber];
 
 function apiCall() {
+  var randomNumber = Math.floor((Math.random() * randomMovieArray.length - 1) + 1);
+  var randomMovie = randomMovieArray[randomNumber];
   $.getJSON('https://www.omdbapi.com/?t=' + encodeURI(randomMovie)).then(function(response){
-    var image = response.image;
-    console.log(response.Poster);
-    if(image !== "undefined"){
-      $('image').attr('src', image);
+    var image = response.Poster;
+    console.log(image);
+    if(image !== "N/A") {
+      $('img').attr('src', image);
     }
 
   });
 }
 
-//apiCall();
+apiCall();
 
-$('button').click(function(){
+$('.search button').click(function(){
   apiCall();
 });

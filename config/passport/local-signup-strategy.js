@@ -1,5 +1,6 @@
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../../models/user');
+//var isValidPassword = require('./password');
 
 var strategy = new LocalStrategy({
   usernameField: 'email',
@@ -26,5 +27,6 @@ function(req, email, password, callback) {
    }
   });
 });
+
 
 module.exports = strategy;

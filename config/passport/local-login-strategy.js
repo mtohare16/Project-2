@@ -17,7 +17,7 @@ var strategy = new LocalStrategy({
 
     //Validate password
     if (!user.isValidPassword(password)) {
-      return callback(null, false, req.flash('error', 'Ooops! Wrong password.'))
+      return callback(null, false, req.flash('error', 'Ooops! Wrong password.'));
     }
     return callback(null, user);
   });
