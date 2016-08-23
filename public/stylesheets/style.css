@@ -23,8 +23,23 @@ a {
   font-weight: normal;
 }
 
+body.container-fluid{
+  background-color: #CDCECF;
+}
 img {
-  border-radius: 15px
+  border-radius: 30px
   border: 2px solid black;
+  opacity: 0.5;
   transition: 0.25s ease-in-out;
+}
+
+img:hover {
+  opacity: 1;
+}
+
+#search button {
+  width: 400px;
+  height: 50px;
+  font-size: 20px;
+  outline: none;
 }
