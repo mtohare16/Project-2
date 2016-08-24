@@ -24,7 +24,8 @@ a {
 }
 
 body.container-fluid{
-  background-color: #CDCECF;
+  background-image: url("http://img0.ndsstatic.com/wallpapers/8e7073cdac026e194bf57ccb9e1deb32_large.jpeg");
+  background-size: 1500px 1200px;
 }
 img {
   border-radius: 30px
