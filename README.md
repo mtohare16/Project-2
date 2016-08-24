@@ -5,7 +5,7 @@
 --
 For Project 2 I have created an express movies app where you can create an account and add movies to your list. Your list can clarify what the title is, the genre, and whether or not you have watched it before. Each account has its own private movie list.
 
-live link - 
+live link - https://dry-beach-92696.herokuapp.com/
 
 --
 ###Technologies Used
