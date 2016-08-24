@@ -75,7 +75,6 @@ router.get('/new', authenticate, function(req, res, next) {
 router.get('/:id', authenticate, function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
-    var todo = currentUser.todos.id(req, res, next);
     if (!todo) return next(makeError(res, 'Document not found', 404));
     res.render('todos/show', { todo: todo });
   }, function(err) {
