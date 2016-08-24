@@ -17,7 +17,7 @@ var todosRouter = require('./routes/todos');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/todos');
+mongoose.connect('mongodb://localhost/movies');
 
 
 app.use(logger('dev'));
