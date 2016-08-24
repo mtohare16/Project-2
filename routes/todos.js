@@ -75,7 +75,6 @@ router.get('/new', authenticate, function(req, res, next) {
 router.get('/:id', authenticate, function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
-    var todo = currentUser.todos.id(req, res, next);
     if (!todo) return next(makeError(res, 'Document not found', 404));
     res.render('todos/show', { todo: todo });
   }, function(err) {
@@ -102,10 +101,8 @@ router.post('/', authenticate, function(req, res, next) {
 
 // EDIT
 router.get('/:id/edit', authenticate, function(req, res, next) {
-  console.log(todo);
   Todo.findById(req.params.id)
   .then(function(todo) {
-    var todo = currentUser.todos.id(req.params.id);
     if (!todo) return next(makeError(res, 'Document not found', 404));
     res.render('todos/edit', { todo: todo });
   }, function(err) {
@@ -129,7 +126,6 @@ router.get('/search', function(req, res, next) {
 router.put('/:id', authenticate, function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
-    var todo = currentUser.todos.id(req.params.id);
     if (!todo) return next(makeError(res, 'Document not found', 404));
     else {
       todo.title = req.body.title;
