@@ -6,10 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
-var todosRouter = require('./routes/todos');
-
-mongoose.connect('mongodb://localhost/todos');
-
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -17,8 +13,18 @@ var flash = require('connect-flash');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var todosRouter = require('./routes/todos');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost/movies');
+
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(methodOverride('_method'));
 
 app.use(session({ secret: 'WDI Rocks!',
                   resave: true,
@@ -35,6 +41,10 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes);
+app.use('/users', users);
+app.use('/todos', todosRouter);
 
 app.get('/views/todos/index', function(req, res) {
   var search = encodeURIComponent('string');
@@ -48,17 +58,8 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'));
-app.use('/todos', todosRouter);
 
 
-app.use('/', routes);
-app.use('/users', users);
 
 
 // catch 404 and forward to error handler

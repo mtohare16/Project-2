@@ -29,6 +29,6 @@ function apiCall() {
 
 apiCall();
 
-$('button').click(function(){
+$('.search button').click(function(){
   apiCall();
 });

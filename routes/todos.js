@@ -9,9 +9,20 @@ function makeError(res, message, status) {
   return error;
 }
 
+function authenticate(req, res, next) {
+  if(!req.isAuthenticated()) {
+    req.flash('error', 'Please signup or login.');
+    res.redirect('/');
+  }
+  else {
+    next();
+  }
+}
+
 // INDEX
 //?title(genre)=kfjdlsa
-router.get('/', function(req, res, next) {
+router.get('/', authenticate, function(req, res, next) {
+
   var todoFilter = {};
 
   if (req.query.title) {
@@ -30,6 +41,7 @@ router.get('/', function(req, res, next) {
   // get all the todos and render the index view
   Todo.find(todoFilter)
   .then(function(todos) {
+    var todos = currentUser.todos
     res.render('todos/index', { todos: todos } );
   }, function(err) {
     return next(err);
@@ -37,7 +49,7 @@ router.get('/', function(req, res, next) {
 });
 
 //Search
-router.post('/search', function(req, res, next) {
+router.post('/search', authenticate, function(req, res, next) {
 console.log(req.body.genre);
 
   var search = req.body.genre;
@@ -45,12 +57,12 @@ console.log(req.body.genre);
 });
 
 //Get
-router.get('/search',function(req, res, next) {
+router.get('/search', authenticate, function(req, res, next) {
   res.render('todos/search');
 });
 
 // NEW
-router.get('/new', function(req, res, next) {
+router.get('/new', authenticate, function(req, res, next) {
   var todo = {
     title: '',
     genre: '',
@@ -60,7 +72,7 @@ router.get('/new', function(req, res, next) {
 });
 
 // SHOW
-router.get('/:id', function(req, res, next) {
+router.get('/:id', authenticate, function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
     if (!todo) return next(makeError(res, 'Document not found', 404));
@@ -71,12 +83,14 @@ router.get('/:id', function(req, res, next) {
 });
 
 // CREATE
-router.post('/', function(req, res, next) {
+router.post('/', authenticate, function(req, res, next) {
   var todo = new Todo({
     title: req.body.title,
     genre: req.body.genre,
     completed: req.body.completed ? true : false
   });
+  currentUser.todos.push(todo);
+  currentUser.save()
   todo.save()
   .then(function(saved) {
     res.redirect('/todos');
@@ -86,7 +100,7 @@ router.post('/', function(req, res, next) {
 });
 
 // EDIT
-router.get('/:id/edit', function(req, res, next) {
+router.get('/:id/edit', authenticate, function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
     if (!todo) return next(makeError(res, 'Document not found', 404));
@@ -109,31 +123,47 @@ router.get('/search', function(req, res, next) {
 */
 
 // UPDATE
-router.put('/:id', function(req, res, next) {
+router.put('/:id', authenticate, function(req, res, next) {
   Todo.findById(req.params.id)
   .then(function(todo) {
     if (!todo) return next(makeError(res, 'Document not found', 404));
-    todo.title = req.body.title;
-    todo.genre = req.body.genre;
-    todo.completed = req.body.completed ? true : false;
-    return todo.save();
-  })
-  .then(function(saved) {
-    res.redirect('/todos');
-  }, function(err) {
-    return next(err);
+    else {
+      todo.title = req.body.title;
+      todo.genre = req.body.genre;
+      todo.completed = req.body.completed ? true : false;
+      //return todo.save();
+      currentUser.save()
+  //})
+      .then(function(saved) {
+        res.redirect('/todos');
+      }, function(err) {
+        return next(err);
+      });
+    }
   });
 });
 
 // DESTROY
-router.delete('/:id', function(req, res, next) {
-  Todo.findByIdAndRemove(req.params.id)
-  .then(function() {
-    res.redirect('/todos');
-  }, function(err) {
-    return next(err);
+router.delete('/:id', authenticate, function(req, res, next) {
+    var todo = currentUser.todos.id(req.params.id);
+    if (!todo) return next(makeError(res, 'Document not found', 404));
+    var index = currentUser.todos.indexOf(todo);
+    currentUser.todos.splice(index, 1);
+    currentUser.save()
+    .then(function(saved) {
+      res.redirect('/todos');
+    }, function(err) {
+      return next(err);
   });
 });
+
+//   Todo.findByIdAndRemove(req.params.id)
+//   .then(function() {
+//     res.redirect('/todos');
+//   }, function(err) {
+//     return next(err);
+//   });
+// });
 
 module.exports = router;
 
