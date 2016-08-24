@@ -131,7 +131,7 @@ router.put('/:id', authenticate, function(req, res, next) {
       todo.title = req.body.title;
       todo.genre = req.body.genre;
       todo.completed = req.body.completed ? true : false;
-      //return todo.save();
+      todo.save()
       currentUser.save()
   //})
       .then(function(saved) {
